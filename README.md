@@ -122,3 +122,72 @@ samples, guidance on mobile development, and a full API reference.
     - Hot Restart adalah proses menjalankan ulang aplikasi dari awal tanpa perlu memuat ulang seluruh engine Flutter seperti pada full restart.
     - Hot Restart bekerja dengan cara Flutter menghentikan eksekusi sementara, menghapus seluruh state aplikasi, dan menjalankan ulang fungsi main().
     - Digunakan saat perubahan kode memengaruhi state global, variabel inisialisasi, atau struktur widget tree awal yang tidak bisa diperbarui hanya dengan Hot Reload.
+
+## Tugas 2
+1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement() pada Flutter. Dalam kasus apa sebaiknya masing-masing digunakan pada aplikasi Football Shop kamu?
+   Navigator.push():
+   - Menambahkan/mendorong halaman baru di atas tumpukan (stack) halaman yang sedang aktif.
+   - Halaman lama tetap ada di memori, sehingga bisa kembali ke sana menggunakan tombol Back.
+   - Digunakan dalam Football Shop dengan pengguna navigasi sementara dan mungkin ingin kembali ke halaman sebelumnya.
+      Contoh: Redirect dari Halaman Produk ke Halaman Detail Produk (asumsi bahwa nanti kedepannya ada fitur menampilkan detail produk berdasarkan tugas Django).
+   
+   Navigator.pushReplacement():
+   - Mengganti halaman saat ini dengan halaman baru dan halaman lama dihapus dari stack.
+   - Tidak bisa kembali ke halaman sebelumnya karena sudah digantikan.
+   - Digunakan dalam Football Shop dengan navigasi menuju halaman utama atau final, dan tidak perlu kembali ke halaman sebelumnya.
+      Contoh: Setelah login berhasil, pindah ke HomePage dan tidak perlu kembali ke halaman login lagi (asumsi bahwa nanti kedepannya ada fitur login berdasarkan tugas Django).
+
+2. Bagaimana kamu memanfaatkan hierarchy widget seperti Scaffold, AppBar, dan Drawer untuk membangun struktur halaman yang konsisten di seluruh aplikasi?
+   Scaffold
+   - Menyediakan struktur dasar untuk setiap halaman Flutter.
+   - Bertujuan menjamin setiap halaman memiliki tata letak yang seragam dan mudah diatur.
+   - Mengatur berbagai komponen seperti:
+      1. appBar (header/judul halaman)
+      2. body (isi utama halaman)
+      3. drawer (menu navigasi samping)
+   
+   AppBar
+   - Menampilkan judul halaman, ikon navigasi, atau aksi cepat.
+   - Memberi tampilan yang konsisten dan familiar di setiap halaman aplikasi.
+
+   Drawer
+   - Berfungsi sebagai menu navigasi global untuk berpindah antar halaman besar.
+   - Memudahkan pengguna berpindah antar bagian aplikasi tanpa kembali ke halaman utama.
+
+3. Dalam konteks desain antarmuka, apa kelebihan menggunakan layout widget seperti Padding, SingleChildScrollView, dan ListView saat menampilkan elemen-elemen form? Berikan contoh penggunaannya dari aplikasi kamu.
+   Padding
+   Padding digunakan untuk memberi jarak antar elemen UI, sehingga tampilan tidak saling berhimpitan dan lebih mudah dibaca oleh pengguna.
+   Keunggulan:
+   - Meningkatkan readability dan kenyamanan visual.
+   - Membuat tampilan lebih simetris dan estetis.
+   - Menghindari elemen menempel ke tepi layar.
+   Contoh penggunaan:
+     Di halaman form produk, setiap TextFormField dibungkus Padding agar jarak antar input tidak terlalu rapat.
+     Ini memberi pengalaman pengisian form yang lebih nyaman dan teratur.
+
+   SingleChildScrollView
+   SingleChildScrollView memungkinkan konten digeser ke atas dan ke bawah jika tinggi elemen melebihi ukuran layar.
+   Keunggulan:
+   - Mencegah overflow error (elemen keluar dari layar).
+   - Ideal untuk form panjang atau popup dialog dengan banyak isi.
+   - Menjamin form tetap dapat diakses di layar kecil.
+   Contoh penggunaan:
+     Di dalam dialog konfirmasi produk tersimpan, SingleChildScrollView digunakan agar semua data produk tetap bisa dilihat meski isinya panjang sehingga tidak ada teks yang terpotong pada layar kecil.
+
+   ListView
+   ListView menampilkan sekumpulan widget dalam bentuk daftar vertikal yang bisa di-scroll.
+   Keunggulan:
+   - Mudah menampilkan daftar item secara dinamis.
+   - Mendukung scroll otomatis tanpa perlu SingleChildScrollView.
+   - Lebih efisien untuk menampilkan banyak elemen berulang
+   Contoh penggunaan:
+     Pada Drawer di file left_drawer.dart, ListView digunakan untuk menampilkan daftar menu navigasi seperti Home dan Add Product sehingga menu tetap bisa digulir dan mudah ditambah tanpa khawatir kelebihan panjang layar.
+
+4. Bagaimana kamu menyesuaikan warna tema agar aplikasi Football Shop memiliki identitas visual yang konsisten dengan brand toko?
+   Dalam aplikasi Football Shop, warna tema menggunakan variasi warna biru sebagai warna utama di seluruh tampilan aplikasi.
+   Pemilihan warna ini dilakukan agar identitas visual aplikasi terasa konsisten dan mencerminkan karakter toko yang modern dan sporty. 
+   Warna biru digunakan pada elemen-elemen utama seperti AppBar, DrawerHeader, dan komponen kartu produk, sedangkan teks berwarna putih menjaga kontras agar tetap mudah dibaca.
+   Dengan penerapan yang seragam ini, setiap halaman aplikasi memiliki tampilan yang menyatu dan mudah dikenali sebagai bagian dari brand Football Shop.
+
+
+   
