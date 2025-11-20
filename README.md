@@ -381,7 +381,7 @@ samples, guidance on mobile development, and a full API reference.
      Per item menampilkan name, price, description, thumbnail, category, dan is_featured.
 
    - Melakukan filter pada halaman daftar item dengan hanya menampilkan item yang terasosiasi dengan pengguna yang login.
-      sdvsdv
+     Buat endpoint Django baru di views.py, modifikasi Flutter untuk panggil endpoint yang berbeda, set parameter untuk switch mode.
 
    - Menjawab beberapa pertanyaan berikut pada README.md pada root folder (silakan modifikasi README.md yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
       Done✅

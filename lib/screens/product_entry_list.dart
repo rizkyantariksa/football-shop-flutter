@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 class ProductEntryListPage extends StatefulWidget {
-  const ProductEntryListPage({super.key});
+  final bool myProductsOnly;
+
+  const ProductEntryListPage({super.key, this.myProductsOnly = false});
 
   @override
   State<ProductEntryListPage> createState() => _ProductEntryListPageState();
@@ -15,8 +17,11 @@ class ProductEntryListPage extends StatefulWidget {
 
 class _ProductEntryListPageState extends State<ProductEntryListPage> {
   Future<List<ProductEntry>> fetchProduct(CookieRequest request) async {
+    final endpoint = widget.myProductsOnly
+        ? 'http://localhost:8000/my-products-json/'
+        : 'http://localhost:8000/json/';
 
-    final response = await request.get('http://localhost:8000/json/');
+    final response = await request.get(endpoint);
 
     // Decode response to json format
     var data = response;
@@ -36,7 +41,8 @@ class _ProductEntryListPageState extends State<ProductEntryListPage> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product Entry List'),
+        // Ubah title sesuai konteks
+        title: Text(widget.myProductsOnly ? 'My Products' : 'All Products'),
         backgroundColor: Color(0xFF5576ea),
         foregroundColor: Colors.white,
       ),
@@ -47,14 +53,18 @@ class _ProductEntryListPageState extends State<ProductEntryListPage> {
           if (snapshot.data == null) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            if (!snapshot.hasData) {
-              return const Column(
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'There are no product in football shop yet.',
+                    widget.myProductsOnly
+                        ? 'You haven\'t created any products yet.'
+                        : 'There are no products in football shop yet.',
                     style: TextStyle(fontSize: 20, color: Color(0xff59A5D8)),
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                 ],
               );
             } else {

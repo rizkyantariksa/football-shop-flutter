@@ -38,6 +38,18 @@ class ItemCard extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const ProductFormPage()),
             );
           }
+          else if (item.name == "All Products") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProductEntryListPage()),
+            );
+          }
+          else if (item.name == "My Products") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProductEntryListPage(myProductsOnly: true)),
+            );
+          }
           else if (item.name == "See Football Product") {
             Navigator.push(
               context,
